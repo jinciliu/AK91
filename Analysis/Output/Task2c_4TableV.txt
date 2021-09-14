@@ -1,0 +1,18 @@
+	(1)	(2)	(3)	(4)
+VARIABLES	OLS	OLS	OLS	OLS
+				
+EDUC	0.0711***	0.0711***	0.0632***	0.0632***
+	(0.0003)	(0.0003)	(0.0003)	(0.0003)
+RACE			-0.2575***	-0.2575***
+			(0.0040)	(0.0040)
+MARRIED			0.2479***	0.2479***
+			(0.0032)	(0.0032)
+SMSA			-0.1763***	-0.1763***
+			(0.0029)	(0.0029)
+				
+Observations	329,509	329,509	329,509	329,509
+R-squared	0.1177	0.1178	0.1650	0.1650
+9 Year-of-birth dummies	Yes	Yes	Yes	Yes
+8 Region of residence dummies	No	No	No	No
+Standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.1				

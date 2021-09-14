@@ -1,0 +1,200 @@
+--------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\jili4163\Desktop\Second_Year\AE\AS2\AK91\Analysis\Ou
+> tput\clean.log
+  log type:  text
+ opened on:  14 Sep 2021, 14:39:39
+
+. 
+. 
+. ************************************************************************
+> *********
+. set mem 500m
+set memory ignored.
+    Memory no longer needs to be set in modern Statas; memory
+    adjustments are performed on the fly automatically.
+
+. use "Build\Input\NEW7080.dta",clear
+
+. ds
+v1   v3   v5   v7   v9   v11  v13  v15  v17  v19  v21  v23  v25  v27
+v2   v4   v6   v8   v10  v12  v14  v16  v18  v20  v22  v24  v26
+
+. rename v1 AGE
+
+. rename v2 AGEQ
+
+. rename v4 EDUC
+
+. rename v5 ENOCENT
+
+. rename v6 ESOCENT
+
+. rename v9 LWKLYWGE
+
+. rename v10 MARRIED
+
+. rename v11 MIDATL
+
+. rename v12 MT
+
+. rename v13 NEWENG
+
+. rename v16 CENSUS
+
+. rename v18 QOB
+
+. rename v19 RACE
+
+. rename v20 SMSA
+
+. rename v21 SOATL
+
+. rename v24 WNOCENT
+
+. rename v25 WSOCENT
+
+. rename v27 YOB
+
+. drop v8
+
+. 
+. gen COHORT=20.29
+
+. replace COHORT=30.39 if YOB<=39 & YOB >=30
+(329,509 real changes made)
+
+. replace COHORT=40.49 if YOB<=49 & YOB >=40
+(486,926 real changes made)
+
+. replace AGEQ=AGEQ-1900 if CENSUS==80
+(816,435 real changes made)
+
+. gen AGEQSQ= AGEQ*AGEQ
+
+. 
+. 
+. ** Generate YOB dummies **********
+. local years "YR20 YR21 YR22 YR23 YR24 YR25 YR26 YR27 YR28 YR29"
+
+. local i = 0
+
+. 
+. foreach y of local years {
+  2.     di "`y'"
+  3.         gen `y' = 0
+  4.         replace `y' = 1 if YOB ==1920 + `i'
+  5.         replace `y' = 1 if YOB ==30 + `i'
+  6.         replace `y' = 1 if YOB ==40 + `i'
+  7.         local i = `i'+ 1
+  8. }
+YR20
+(23,725 real changes made)
+(33,602 real changes made)
+(38,218 real changes made)
+YR21
+(24,978 real changes made)
+(30,583 real changes made)
+(38,387 real changes made)
+YR22
+(24,264 real changes made)
+(32,211 real changes made)
+(45,018 real changes made)
+YR23
+(24,345 real changes made)
+(30,751 real changes made)
+(46,349 real changes made)
+YR24
+(25,548 real changes made)
+(31,916 real changes made)
+(44,387 real changes made)
+YR25
+(24,834 real changes made)
+(32,773 real changes made)
+(44,546 real changes made)
+YR26
+(24,431 real changes made)
+(32,676 real changes made)
+(54,122 real changes made)
+YR27
+(25,650 real changes made)
+(33,969 real changes made)
+(60,788 real changes made)
+YR28
+(24,614 real changes made)
+(35,223 real changes made)
+(57,692 real changes made)
+YR29
+(24,810 real changes made)
+(35,805 real changes made)
+(57,419 real changes made)
+
+. ** Generate QOB dummies ***********
+. local QTR "QTR1 QTR2 QTR3 QTR4 "
+
+. local i = 0
+
+. 
+. foreach y of local QTR {
+  2.     di "`y'"
+  3.         gen `y' = 0
+  4.         replace `y' = 1 if QOB ==1 + `i'
+  5.         local i = `i'+ 1
+  6. }
+QTR1
+(262,019 real changes made)
+QTR2
+(255,733 real changes made)
+QTR3
+(280,749 real changes made)
+QTR4
+(265,133 real changes made)
+
+. 
+. ** Generate YOB*QOB dummies ********
+. 
+. local years "YR20 YR21 YR22 YR23 YR24 YR25 YR26 YR27 YR28 YR29"
+
+. local QTR "QTR1 QTR2 QTR3"
+
+. foreach var of local QTR {
+  2.         foreach y of local years {
+  3.                 local dis = substr("`y'",3,2)
+  4.                 gen `var'`dis' = `var'*`y'
+  5. }
+  6. }
+
+. save Analysis\Input\cleaned.dta
+file Analysis\Input\cleaned.dta already exists
+r(602);
+
+end of do-file
+
+r(602);
+
+. do "C:\Users\jili4163\AppData\Local\Temp\STD2a1c_000000.tmp"
+
+. 
+. ***********************************
+. **** Applied Empirical Assignment 2
+. **** Analysis data
+. **** Jinci Liu
+. **** Date: Sep 14 2021
+. ***********************************
+. global rootdir "C:\Users\jili4163\Desktop\Second_Year\AE\AS2\AK91\Analys
+> is\Output"
+
+. cd $rootdir
+C:\Users\jili4163\Desktop\Second_Year\AE\AS2\AK91\Analysis\Output
+
+. 
+. 
+. log using "Analysis\Output\analysis.log", replace 
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. exit, clear

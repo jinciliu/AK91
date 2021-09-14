@@ -1,0 +1,29 @@
+commit e1b3e3469b4e1259faac5c8fe86adfa0d5fbe3eb
+Author: Jinci <jinci.liu@iies.su.se>
+Date:   Tue Sep 14 13:27:26 2021 +0200
+
+    write a program to run the regression
+
+commit 2e86fe74bcd87bd05814e8fc8e2a5e38a125e527
+Author: Jinci <jinci.liu@iies.su.se>
+Date:   Tue Sep 14 13:20:22 2021 +0200
+
+    print output regression tables
+
+commit b34639aed551ace1c90ec78fd28498fc5fc40465
+Author: Jinci <jinci.liu@iies.su.se>
+Date:   Tue Sep 14 11:12:53 2021 +0200
+
+    remove duplications
+
+commit ff662dc16ae209b3d83314ca7896c33800b3a8c2
+Author: Jinci <jinci.liu@iies.su.se>
+Date:   Tue Sep 14 10:59:02 2021 +0200
+
+    rename variables
+
+commit cf2a879e6cda812dbf5df5c439ea4e1bd9b890c9
+Author: Jinci <jinci.liu@iies.su.se>
+Date:   Tue Sep 14 10:55:30 2021 +0200
+
+    stage all files
