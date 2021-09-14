@@ -100,7 +100,7 @@ program define reg_Table
 	ivregress 2sls LWKLYWGE `years' `controls' (EDUC = `time')
 	est store m8
 
-	estout m1 m2 m3 m4 m5 m6 m7 m8 using `table'.txt, cells(b(star fmt(3)) se(par fmt(2))) legend label varlabels(_cons Constant) title (Regression Results) replace
+	estout m1 m2 m3 m4 m5 m6 m7 m8 using Task2c_3`table'.txt, cells(b(star fmt(3)) se(par fmt(2))) legend label varlabels(_cons Constant) title (Regression Results) replace
 end
 
 preserve
@@ -116,4 +116,37 @@ restore
 preserve
 keep if COHORT>40.00
 reg_Table TableVI
+restore
+
+*** Regression ***********************
+
+capture program drop reg_Ak
+
+program define reg_Ak
+	local controls "RACE MARRIED SMSA NEWENG MIDATL ENOCENT WNOCENT SOATL ESOCENT WSOCENT MT"
+	args table 
+	reg  LWKLYWGE EDUC  YR20-YR28 
+	outreg2 EDUC using Task2c_4`table',excel addtext(9 Year-of-birth dummies, Yes, 8 Region of residence dummies, No) se alpha(0.01,0.05,0.1) dec(4) nocons keep (EDUC RACE SMSA MARRIED) ctitle(OLS) replace
+	reg  LWKLYWGE EDUC  YR20-YR28 AGEQ AGEQSQ 
+	outreg2 EDUC using  Task2c_4`table',excel addtext(9 Year-of-birth dummies, Yes, 8 Region of residence dummies, No) se alpha(0.01,0.05,0.1) dec(4) nocons keep (EDUC RACE SMSA MARRIED) append ctitle(OLS)
+	reg  LWKLYWGE EDUC  `controls' YR20-YR28  
+	outreg2 EDUC using  Task2c_4`table',excel addtext(9 Year-of-birth dummies, Yes, 8 Region of residence dummies, No) se alpha(0.01,0.05,0.1) dec(4) nocons keep (EDUC RACE SMSA MARRIED) append ctitle(OLS)
+	reg  LWKLYWGE EDUC  `controls' YR20-YR28 AGEQ AGEQSQ 
+	outreg2 EDUC using  Task2c_4`table',excel addtext(9 Year-of-birth dummies, Yes, 8 Region of residence dummies, No) se alpha(0.01,0.05,0.1) dec(4) nocons keep (EDUC RACE SMSA MARRIED) append ctitle(OLS)
+end
+
+ 
+preserve
+keep if COHORT<20.30
+reg_Ak TableIV
+restore
+
+preserve
+keep if COHORT>30.00 & COHORT <30.40
+reg_Ak TableV
+restore
+
+preserve
+keep if COHORT>40.00
+reg_Ak TableVI
 restore
